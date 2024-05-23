@@ -39,6 +39,7 @@ async function api<T>(
       if (res.headers.get('Content-Type')?.includes('application/json')) {
         return res.json();
       }
+      if (res.headers.get('Content-Type')?.includes('image')) return res.blob();
       return res.text();
     }
     if (res.status === 401 && endpoint !== 'users/login') {
