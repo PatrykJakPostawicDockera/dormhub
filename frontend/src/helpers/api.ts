@@ -1,7 +1,7 @@
 import { useToast } from 'vue-toastification';
 import { useAuthStore } from '@/stores/auth';
 
-const url = 'http://api:9871';
+const url = import.meta.env.VITE_API_URL;
 
 async function api<T>(
   endpoint: string,
