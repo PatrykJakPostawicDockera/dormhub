@@ -34,10 +34,3 @@ jobs:
             echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
             docker compose down
             docker compose up --build -d
-            docker exec -it dormhub-ftp-1 bin/sh
-            mkdir /ftp
-            mkdir /ftp/karhu
-            mkdir /ftp/karhu/images
-            cd /ftp/karhu
-            chown karhu: images
-            exit
