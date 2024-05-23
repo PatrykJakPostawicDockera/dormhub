@@ -70,6 +70,11 @@ const router = createRouter({
       component: () => import('../views/Debug/CreateUser.vue'),
     },
     {
+      path: '/debug/dorms',
+      name: 'Debug Dorm Control',
+      component: () => import('../views/Debug/DormControl.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       redirect: { name: 'Login' },
     },
