@@ -30,5 +30,7 @@ jobs:
           script: |
             cd ${{ secrets.REMOTE_TARGET }}
             echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" > .env && echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env && echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env && echo "LOG_DIR=/var/log/dormhub" >> .env && echo "LOG_LEVEL=WARNING" >> .env && echo "MAX_LOGS=5" >> .env && echo "TOKEN_HEADER_KEY=Authorization" >> .env && echo "TOKEN_HOURS=${{ secrets.TOKEN_HOURS }}" >> .env && echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env && echo "PASSWORD_PEPPER=${{ secrets.PASSWORD_PEPPER }}" >> .env && echo "FTP_USER=${{ secrets.FTP_USER }}" >> .env  && echo "FTP_FULLLOGIN=${{ secrets.FTP_FULLLOGIN }}" >> .env
+            cd ${{ secrets.REMOTE_TARGET }}/frontend
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
             docker compose down
             docker compose up --build -d
