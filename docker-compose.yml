@@ -1,0 +1,63 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: nginx:alpine
+    volumes:
+      - ./certs:/etc/ssl
+      - ftp_images:/usr/share/nginx/imgs
+    ports:
+      - '443:443'
+      - '80:80'
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - '9871:9871'
+    env_file: .env
+    environment:
+      DB_USER: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      LOG_DIR: ${LOG_DIR}
+      LOG_LEVEL: ${LOG_LEVEL}
+    stop_signal: SIGINT
+    restart: always
+    volumes:
+      - ./log:/var/log/dormhub
+  db:
+    image: mariadb:latest
+    expose:
+      - 3306
+    env_file: .env
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+  ftp:
+    image: delfer/alpine-ftp-server
+    env_file: .env
+    environment:
+      USERS: ${FTP_FULLLOGIN}
+    stop_signal: SIGINT
+    restart: always
+    volumes:
+      - ftp_images:/ftp/${FTP_USER}/images
+  #  qr_generator:
+#    build: "./qr_generator"
+#    stop_signal: SIGINT
+#    restart: always
+#  maintenance:
+#    build: "./misc"
+#    env_file: .env
+#    restart: on-failure
+#    stop_signal: SIGKILL
+volumes:
+  mysql_data:
+  ftp_images:

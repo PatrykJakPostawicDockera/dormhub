@@ -1,0 +1,14 @@
+frontend/node_modules
+.git/
+.dockerignore
+.gitignore
+docker-compose.yaml
+Dockerfile
+README.md
+frontend/package-lock.json
+frontend/yarn.lock
+.env.template
+.idea/
+log/*
+backend/misc/
+backend/.venv

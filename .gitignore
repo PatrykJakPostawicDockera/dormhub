@@ -1,0 +1,7 @@
+**/__pycache__/
+.env
+.idea/
+log/*
+!log/.gitkeep
+certs/*
+!certs/.gitkeep

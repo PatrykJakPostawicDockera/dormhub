@@ -1,0 +1,6 @@
+.env
+.env.template
+.idea/
+log/*
+!log/.gitkeep
+misc/

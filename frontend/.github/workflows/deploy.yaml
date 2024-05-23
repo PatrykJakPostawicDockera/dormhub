@@ -1,0 +1,34 @@
+on: push
+name: 🚀 Deploy dev website
+jobs:
+  docker-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 🥔 Deploy to server
+        uses: appleboy/scp-action@v0.1.7
+        if: ${{ startsWith(github.event.head_commit.message, '[DEPLOY]') }}
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          target: ${{ secrets.REMOTE_TARGET }}
+          source: "*"
+
+      - name: 🚀 Setup Docker
+        uses: appleboy/ssh-action@v1.0.3
+        if: ${{ startsWith(github.event.head_commit.message, '[DEPLOY]') }}
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd ${{ secrets.REMOTE_TARGET }}
+            echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env && echo "VITE_JWT_SECRET=${{ secrets.VITE_JWT_SECRET }}" >> .env
+            docker compose down
+            docker compose up --build -d
