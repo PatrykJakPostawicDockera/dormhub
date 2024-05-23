@@ -2,7 +2,10 @@
   <div
     class="flex flex-col items-center justify-center gap-5 bg-white p-5 shadow dark:bg-[#50504D] sm:rounded-lg"
   >
-    <img :src="guest.AvatarUrl" alt="Guest avatar" class="h-20 w-20 rounded-full" />
+    <img v-if="guest.AvatarUrl != '' && guest.AvatarUrl.match('http')" :src="guest.AvatarUrl" alt="Guest avatar" class="h-20 w-20 rounded-full" />
+    <div v-else class="rounded-full bg-white/20 h-20 w-20 flex items-center justify-center">
+      <User class="h-10 w-auto" />
+    </div>
     <div class="flex flex-col items-center gap-1">
       <p>Room {{ guest.RoomNumber }}</p>
       <h1 class="text-2xl">
@@ -39,6 +42,7 @@
 import type { UserDataModel } from '@/models/user.model';
 import { onMounted, ref } from 'vue';
 import { apiInstance } from '@/helpers/api';
+import { User } from 'lucide-vue-next';
 
 const props = defineProps<{
   guest: UserDataModel;
@@ -52,6 +56,7 @@ interface Nationality {
 const nationality = ref<Nationality>({} as Nationality);
 
 onMounted(async () => {
+  console.log(props.guest.AvatarUrl);
   await apiInstance
     .get<Nationality>(`nationalities/${props.guest.Nationality}`)
     .then((response) => {
