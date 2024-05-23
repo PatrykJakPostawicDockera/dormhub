@@ -75,6 +75,7 @@ const handleQuickInsert = async (fields: QuickDormsFields) => {
 
 const getQr = async (dormId: string) => {
   await apiInstance.get<Blob>(`dorms/${dormId}/qr`, true).then((response) => {
+    if (!response) return;
     const url = window.URL.createObjectURL(new Blob([response]));
     const link = document.createElement('a');
     link.href = url;

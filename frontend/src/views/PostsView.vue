@@ -16,6 +16,7 @@ import type PostModel from '@/models/post.model';
 import PostCard from '@/components/PostCard.vue';
 import MainButton from '@/components/MainButton.vue';
 import CreatePostModal from '@/components/CreatePostModal.vue';
+import { useAuthStore } from '@/stores/auth';
 
 const posts = ref<PostModel[]>([]);
 const show = ref(false);
@@ -25,9 +26,11 @@ onMounted(async () => {
 });
 
 const fetchPosts = async () => {
-  await apiInstance.get<PostModel[]>('posts', true).then((response) => {
-    posts.value = response ? response : [];
-  });
+  await apiInstance
+    .get<PostModel[]>(`dorms/${useAuthStore().getTokenData.DormId}/posts`, true)
+    .then((response) => {
+      posts.value = response ? response : [];
+    });
 };
 
 const handleModalClose = async () => {
