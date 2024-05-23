@@ -11,13 +11,6 @@
     </div>
     <div class="hidden items-center gap-5 lg:flex">
       <RouterLink
-        to="/settlement"
-        class="flex gap-1 transition-all duration-200 ease-in-out hover:scale-105"
-      >
-        <HandCoins />
-        <p class="text-lg">Settlement</p>
-      </RouterLink>
-      <RouterLink
         to="/app/posts"
         class="flex gap-1 transition-all duration-200 ease-in-out hover:scale-105"
       >
@@ -25,7 +18,7 @@
         <p class="text-lg">Posts</p>
       </RouterLink>
       <RouterLink
-        to="/todo"
+        to="/app/todos"
         class="flex gap-1 transition-all duration-200 ease-in-out hover:scale-105"
       >
         <SquareCheckBig />
@@ -57,10 +50,10 @@
   >
     <nav class="my-10 flex gap-5 rounded-3xl bg-light px-2 py-1 dark:bg-dark">
       <RouterLink
-        to="/app"
+        to="/app/todos"
         class="flex items-center justify-center gap-1 p-2 transition-all duration-200 ease-in-out"
       >
-        <HandCoins class="h-7 w-7" />
+        <SquareCheckBig />
       </RouterLink>
       <RouterLink
         to="/app/posts"
