@@ -18,13 +18,6 @@
         <p class="text-lg">Posts</p>
       </RouterLink>
       <RouterLink
-        to="/app/todos"
-        class="flex gap-1 transition-all duration-200 ease-in-out hover:scale-105"
-      >
-        <SquareCheckBig />
-        <p class="text-lg">Todos</p>
-      </RouterLink>
-      <RouterLink
         to="/app/guests"
         class="flex gap-1 transition-all duration-200 ease-in-out hover:scale-105"
       >
@@ -50,34 +43,24 @@
   >
     <nav class="my-10 flex gap-5 rounded-3xl bg-light px-2 py-1 dark:bg-dark">
       <RouterLink
-        to="/app/todos"
-        class="flex items-center justify-center gap-1 p-2 transition-all duration-200 ease-in-out"
-      >
-        <SquareCheckBig />
-      </RouterLink>
-      <RouterLink
-        to="/app/posts"
-        class="flex items-center justify-center gap-1 p-2 transition-all duration-200 ease-in-out"
-      >
-        <MessageSquare class="h-7 w-7" />
-      </RouterLink>
-      <RouterLink
-        to="/app"
-        class="flex scale-125 items-center justify-center gap-1 rounded-full bg-primaryLight p-2 text-white transition-all duration-200 ease-in-out dark:bg-primaryDark"
-      >
-        <LayoutDashboard
-          :class="{
-            '!scale-100': $route.path === '/app',
-          }"
-          class="h-7 w-7 scale-90 transition-all duration-200 ease-in-out"
-        />
-      </RouterLink>
-      <RouterLink
         to="/app/guests"
         class="flex items-center justify-center gap-1 p-2 transition-all duration-200 ease-in-out"
       >
         <Users class="h-7 w-7" />
       </RouterLink>
+
+      <RouterLink
+        to="/app/posts"
+        class="flex scale-125 items-center justify-center gap-1 rounded-full bg-primaryLight p-2 text-white transition-all duration-200 ease-in-out dark:bg-primaryDark"
+      >
+        <MessageSquare
+          :class="{
+            '!scale-100': $route.path === '/app/posts',
+          }"
+          class="h-7 w-7 scale-90 transition-all duration-200 ease-in-out"
+        />
+      </RouterLink>
+
       <RouterLink
         to="/app/settings"
         class="flex items-center justify-center gap-1 p-2 transition-all duration-200 ease-in-out"
@@ -89,14 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  HandCoins,
-  MessageSquare,
-  SquareCheckBig,
-  Users,
-  Settings2,
-  LayoutDashboard,
-} from 'lucide-vue-next';
+import { MessageSquare, Users, Settings2 } from 'lucide-vue-next';
 import MainButton from '@/components/MainButton.vue';
 import { useAuthStore } from '@/stores/auth';
 

@@ -26,11 +26,9 @@ onMounted(async () => {
 });
 
 const fetchPosts = async () => {
-  await apiInstance
-    .get<PostModel[]>(`dorms/${useAuthStore().getTokenData.DormId}/posts`, true)
-    .then((response) => {
-      posts.value = response ? response : [];
-    });
+  await apiInstance.get<PostModel[]>(`posts`, true).then((response) => {
+    posts.value = response ? response : [];
+  });
 };
 
 const handleModalClose = async () => {
